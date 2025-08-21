@@ -42,106 +42,166 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Login do Sistema
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Cadastro de Pessoas
-          </p>
-        </div>
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="nomeUsuario" className="sr-only">
-                Nome de Usuário
-              </label>
-              <input
-                {...register('nomeUsuario')}
-                id="nomeUsuario"
-                type="text"
-                className={`appearance-none rounded-none relative block w-full px-3 py-2 border ${
-                  errors.nomeUsuario ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
-                placeholder="Nome de Usuário"
-              />
-            </div>
-            <div>
-              <label htmlFor="senha" className="sr-only">
-                Senha
-              </label>
-              <input
-                {...register('senha')}
-                id="senha"
-                type="password"
-                className={`appearance-none rounded-none relative block w-full px-3 py-2 border ${
-                  errors.senha ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
-                placeholder="Senha"
-              />
-            </div>
-          </div>
-
-          {errors.nomeUsuario && (
-            <p className="text-red-600 text-sm">{errors.nomeUsuario.message}</p>
-          )}
-          
-          {errors.senha && (
-            <p className="text-red-600 text-sm">{errors.senha.message}</p>
-          )}
-
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <div className="flex items-center">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Entrando...
+    <div className="login-page d-flex align-items-center justify-content-center min-vh-100">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            
+            {/* Card Principal */}
+            <div className="login-page__container shadow-lg p-4 p-md-5">
+              
+              {/* Header */}
+              <div className="text-center mb-5">
+                <div className="login-page__header-logo mx-auto mb-4">
+                  <i className="bi bi-people-fill"></i>
                 </div>
-              ) : (
-                'Entrar'
+                <h1 className="h2 fw-bold text-dark mb-2">Sistema de Cadastro</h1>
+                <p className="text-muted mb-0">Faça login para acessar o sistema</p>
+              </div>
+
+              {/* Formulário */}
+              <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
+                
+                {/* Campo Usuário */}
+                <div className="mb-3">
+                  <label htmlFor="nomeUsuario" className="form-label fw-semibold">
+                    <i className="bi bi-person me-2"></i>Usuário
+                  </label>
+                  <input
+                    {...register('nomeUsuario')}
+                    id="nomeUsuario"
+                    type="text"
+                    className={`form-control form-control-lg ${
+                      errors.nomeUsuario ? 'is-invalid' : ''
+                    }`}
+                    placeholder="Digite seu usuário"
+                  />
+                  {errors.nomeUsuario && (
+                    <div className="invalid-feedback">
+                      {errors.nomeUsuario.message}
+                    </div>
+                  )}
+                </div>
+
+                {/* Campo Senha */}
+                <div className="mb-4">
+                  <label htmlFor="senha" className="form-label fw-semibold">
+                    <i className="bi bi-lock me-2"></i>Senha
+                  </label>
+                  <input
+                    {...register('senha')}
+                    id="senha"
+                    type="password"
+                    className={`form-control form-control-lg ${
+                      errors.senha ? 'is-invalid' : ''
+                    }`}
+                    placeholder="Digite sua senha"
+                  />
+                  {errors.senha && (
+                    <div className="invalid-feedback">
+                      {errors.senha.message}
+                    </div>
+                  )}
+                </div>
+
+                {/* Botão de Login */}
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="btn btn-primary btn-lg w-100 fw-semibold py-3"
+                >
+                  {isLoading ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      Entrando...
+                    </>
+                  ) : (
+                    <>
+                      <i className="bi bi-box-arrow-in-right me-2"></i>
+                      Entrar no Sistema
+                    </>
+                  )}
+                </button>
+              </form>
+
+              {/* Mensagem de Erro */}
+              {error && (
+                <div className="alert alert-danger d-flex align-items-center" role="alert">
+                  <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                  <div>{error}</div>
+                </div>
               )}
-            </button>
-          </div>
 
-          {/* Credenciais padrão para desenvolvimento */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-blue-800 mb-2">
-              🔑 Credenciais para Desenvolvimento
-            </h3>
-            <div className="space-y-1 text-sm text-blue-700">
-              <p><strong>Usuário:</strong> admin</p>
-              <p><strong>Senha:</strong> admin123</p>
-              <p className="text-xs mt-2">
-                ⚠️ Estas credenciais são apenas para desenvolvimento
-              </p>
-            </div>
-          </div>
+              {/* Informações de Desenvolvimento */}
+              <div className="row g-3 mt-4">
+                
+                {/* Credenciais */}
+                <div className="col-12">
+                  <div className="card border-0 bg-light">
+                    <div className="card-body p-3">
+                      <h6 className="card-title text-primary mb-2">
+                        <i className="bi bi-key me-2"></i>
+                        Credenciais para Desenvolvimento
+                      </h6>
+                      <div className="row text-center">
+                        <div className="col-6">
+                          <small className="text-muted d-block">Usuário</small>
+                          <code className="text-primary">admin</code>
+                        </div>
+                        <div className="col-6">
+                          <small className="text-muted d-block">Senha</small>
+                          <code className="text-primary">admin123</code>
+                        </div>
+                      </div>
+                      <div className="alert alert-warning alert-sm mt-2 mb-0 py-1">
+                        <small>
+                          <i className="bi bi-exclamation-triangle me-1"></i>
+                          Apenas para desenvolvimento
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-          {/* Informações sobre o JWT */}
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-green-800 mb-2">
-              🎯 Sistema JWT Configurado
-            </h3>
-            <div className="text-sm text-green-700">
-              <p>• Token padrão configurado para desenvolvimento</p>
-              <p>• Validação automática de assinatura</p>
-              <p>• Expiração configurada para 24 horas</p>
+                {/* Status do Sistema */}
+                <div className="col-12">
+                  <div className="card border-0 bg-success bg-opacity-10">
+                    <div className="card-body p-3">
+                      <h6 className="card-title text-success mb-2">
+                        <i className="bi bi-check-circle me-2"></i>
+                        Sistema JWT Configurado
+                      </h6>
+                      <ul className="list-unstyled mb-0 small">
+                        <li className="text-success">
+                          <i className="bi bi-dot me-1"></i>
+                          Token padrão para desenvolvimento
+                        </li>
+                        <li className="text-success">
+                          <i className="bi bi-dot me-1"></i>
+                          Validação automática ativa
+                        </li>
+                        <li className="text-success">
+                          <i className="bi bi-dot me-1"></i>
+                          Expiração: 24 horas
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
+            {/* Footer */}
+            <div className="text-center mt-4">
+              <small className="text-muted">
+                <i className="bi bi-shield-check me-1"></i>
+                Desafio
+              </small>
+            </div>
+
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
