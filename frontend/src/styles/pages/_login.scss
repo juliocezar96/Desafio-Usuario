@@ -1,0 +1,224 @@
+// ==========================================================================
+// PÁGINA DE LOGIN - VERSÃO SIMPLIFICADA
+// ==========================================================================
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary--dark 100%);
+  padding: $spacing--md;
+  
+  &__container {
+    background: $color-white;
+    border-radius: $border-radius--xl;
+    box-shadow: $shadow--xl;
+    padding: $spacing--3xl;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, $color-primary, $color-success, $color-info);
+    }
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing--2xl;
+    
+    &-logo {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto $spacing--md;
+      background: $color-primary;
+      border-radius: $border-radius--lg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $color-white;
+      font-size: $font-size--2xl;
+      font-weight: $font-weight--bold;
+    }
+    
+    &-title {
+      font-size: $font-size--3xl;
+      font-weight: $font-weight--bold;
+      color: $color-gray--800;
+      margin-bottom: $spacing--sm;
+    }
+    
+    &-subtitle {
+      font-size: $font-size--base;
+      color: $color-gray--600;
+      line-height: $line-height--normal;
+    }
+  }
+  
+  &__form {
+    .form-group {
+      margin-bottom: $spacing--lg;
+      
+      label {
+        display: block;
+        font-size: $font-size--sm;
+        font-weight: $font-weight--medium;
+        color: $color-gray--700;
+        margin-bottom: $spacing--xs;
+      }
+      
+      input {
+        width: 100%;
+        padding: $spacing--md;
+        border: 2px solid $color-gray--200;
+        border-radius: $border-radius--md;
+        font-size: $font-size--base;
+        transition: $transition--normal;
+        background: $color-white;
+        
+        &:focus {
+          outline: none;
+          border-color: $color-primary;
+          box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+        }
+        
+        &::placeholder {
+          color: $color-gray--400;
+        }
+        
+        &.error {
+          border-color: $color-danger;
+        }
+      }
+      
+      .error-message {
+        color: $color-danger;
+        font-size: $font-size--sm;
+        margin-top: $spacing--xs;
+      }
+    }
+    
+    .form-actions {
+      margin-top: $spacing--2xl;
+      
+      .btn-login {
+        width: 100%;
+        padding: $spacing--md;
+        background: $color-primary;
+        color: $color-white;
+        border: none;
+        border-radius: $border-radius--md;
+        font-size: $font-size--base;
+        font-weight: $font-weight--semibold;
+        cursor: pointer;
+        transition: $transition--normal;
+        
+        &:hover {
+          background: $color-primary--dark;
+          transform: translateY(-1px);
+          box-shadow: $shadow--md;
+        }
+        
+        &:disabled {
+          background: $color-gray--400;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  
+  &__links {
+    margin-top: $spacing--xl;
+    text-align: center;
+    
+    a {
+      color: $color-primary;
+      text-decoration: none;
+      font-size: $font-size--sm;
+      transition: $transition--normal;
+      
+      &:hover {
+        color: $color-primary--dark;
+        text-decoration: underline;
+      }
+      
+      &:not(:last-child) {
+        margin-right: $spacing--lg;
+      }
+    }
+  }
+  
+  &__message {
+    padding: $spacing--md;
+    border-radius: $border-radius--md;
+    margin-bottom: $spacing--lg;
+    font-size: $font-size--sm;
+    
+    &.error {
+      background: rgba($color-danger, 0.1);
+      color: $color-danger;
+      border: 1px solid rgba($color-danger, 0.2);
+    }
+    
+    &.success {
+      background: rgba($color-success, 0.1);
+      color: $color-success;
+      border: 1px solid rgba($color-success, 0.2);
+    }
+  }
+}
+
+// ==========================================================================
+// RESPONSIVIDADE SIMPLIFICADA
+// ==========================================================================
+
+@media (max-width: $breakpoint--sm) {
+  .login-page {
+    padding: $spacing--sm;
+    
+    &__container {
+      padding: $spacing--xl;
+      margin: $spacing--sm;
+    }
+    
+    &__header {
+      &-title {
+        font-size: $font-size--2xl;
+      }
+      
+      &-subtitle {
+        font-size: $font-size--sm;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint--xs) {
+  .login-page {
+    &__container {
+      padding: $spacing--lg;
+    }
+    
+    &__header {
+      &-logo {
+        width: 50px;
+        height: 50px;
+        font-size: $font-size--xl;
+      }
+      
+      &-title {
+        font-size: $font-size--xl;
+      }
+    }
+  }
+}

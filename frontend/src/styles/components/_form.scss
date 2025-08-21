@@ -1,0 +1,257 @@
+.form {
+  &__group {
+    margin-bottom: $spacing--md;
+  }
+  
+  &__label {
+    display: block;
+    margin-bottom: $spacing--xs;
+    font-size: $font-size--sm;
+    font-weight: $font-weight--medium;
+    color: $color-gray--700;
+    
+    &--required::after {
+      content: ' *';
+      color: $color-danger;
+    }
+  }
+  
+  &__input {
+    @include input-base;
+    
+    &--error {
+      border-color: $color-danger;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($color-danger, 0.1);
+      }
+    }
+    
+    &--success {
+      border-color: $color-success;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($color-success, 0.1);
+      }
+    }
+    
+    &--small {
+      padding: $spacing--xs $spacing--sm;
+      font-size: $font-size--sm;
+    }
+    
+    &--large {
+      padding: $spacing--md $spacing--lg;
+      font-size: $font-size--lg;
+    }
+  }
+  
+  &__textarea {
+    @include input-base;
+    min-height: 100px;
+    resize: vertical;
+    
+    &--auto-resize {
+      resize: none;
+      overflow: hidden;
+    }
+  }
+  
+  &__select {
+    @include input-base;
+    cursor: pointer;
+    
+    &--multiple {
+      min-height: 120px;
+    }
+  }
+  
+  &__checkbox,
+  &__radio {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing--sm;
+    cursor: pointer;
+    
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: $spacing--sm;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    
+    .form__label {
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+  }
+  
+  &__error {
+    margin-top: $spacing--xs;
+    font-size: $font-size--sm;
+    color: $color-danger;
+    display: flex;
+    align-items: center;
+    
+    &::before {
+      content: '⚠';
+      margin-right: $spacing--xs;
+      font-size: $font-size--xs;
+    }
+  }
+  
+  &__help {
+    margin-top: $spacing--xs;
+    font-size: $font-size--sm;
+    color: $color-gray--600;
+  }
+  
+  &__actions {
+    @include flex-between;
+    margin-top: $spacing--lg;
+    padding-top: $spacing--md;
+    border-top: $border-width--thin solid $color-gray--200;
+    
+    &--center {
+      justify-content: center;
+      gap: $spacing--md;
+    }
+    
+    &--right {
+      justify-content: flex-end;
+      gap: $spacing--md;
+    }
+  }
+  
+  &__row {
+    @include flex;
+    gap: $spacing--md;
+    
+    .form__group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    @include respond-to(sm) {
+      flex-direction: column;
+      
+      .form__group {
+        margin-bottom: $spacing--md;
+      }
+    }
+  }
+  
+  &__inline {
+    @include flex;
+    align-items: center;
+    gap: $spacing--md;
+    
+    .form__label {
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    
+    .form__input {
+      width: auto;
+      min-width: 200px;
+    }
+    
+    @include respond-to(sm) {
+      flex-direction: column;
+      align-items: stretch;
+      
+      .form__input {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+  }
+  
+  // Estados de validação
+  &--validating {
+    .form__input {
+      border-color: $color-warning;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($color-warning, 0.1);
+      }
+    }
+  }
+  
+  &--valid {
+    .form__input {
+      border-color: $color-success;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($color-success, 0.1);
+      }
+    }
+  }
+  
+  &--invalid {
+    .form__input {
+      border-color: $color-danger;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($color-danger, 0.1);
+      }
+    }
+  }
+  
+  // Modificadores de layout
+  &--horizontal {
+    .form__group {
+      @include flex;
+      align-items: center;
+      
+      .form__label {
+        width: 200px;
+        margin-bottom: 0;
+        margin-right: $spacing--md;
+        text-align: right;
+      }
+      
+      .form__input {
+        flex: 1;
+      }
+      
+      @include respond-to(sm) {
+        flex-direction: column;
+        align-items: stretch;
+        
+        .form__label {
+          width: auto;
+          margin-bottom: $spacing--xs;
+          margin-right: 0;
+          text-align: left;
+        }
+      }
+    }
+  }
+  
+  &--compact {
+    .form__group {
+      margin-bottom: $spacing--sm;
+    }
+    
+    .form__input {
+      padding: $spacing--xs $spacing--sm;
+    }
+  }
+  
+  &--large {
+    .form__group {
+      margin-bottom: $spacing--lg;
+    }
+    
+    .form__input {
+      padding: $spacing--md $spacing--lg;
+      font-size: $font-size--lg;
+    }
+    
+    .form__label {
+      font-size: $font-size--base;
+    }
+  }
+}

@@ -1,0 +1,139 @@
+// ==========================================================================
+// EXEMPLOS DE USO BEM - Padrão BEM
+// ==========================================================================
+
+/*
+  COMO USAR OS ESTILOS BEM NO PROJETO:
+  
+  BEM = Block__Element--Modifier
+  
+  Block: Componente principal (ex: .form, .button, .card)
+  Element: Elemento dentro do bloco (ex: __input, __label, __header)
+  Modifier: Variação do bloco ou elemento (ex: --primary, --large, --error)
+*/
+
+// Exemplo de uso do botão
+.button-example {
+  // Botão primário padrão
+  .button--primary { }
+  
+  // Botão secundário pequeno
+  .button--secondary.button--small { }
+  
+  // Botão outline de sucesso
+  .button--outline.button--success { }
+  
+  // Botão com ícone à esquerda
+  .button--icon-left .button__icon { }
+  
+  // Botão de loading
+  .button--loading { }
+}
+
+// Exemplo de uso do formulário
+.form-example {
+  // Formulário horizontal
+  .form--horizontal .form__group { }
+  
+  // Input com erro
+  .form__input--error { }
+  
+  // Label obrigatório
+  .form__label--required { }
+  
+  // Grupo de formulário
+  .form__group { }
+  
+  // Ações centralizadas
+  .form__actions--center { }
+}
+
+// Exemplo de uso do card
+.card-example {
+  // Card padrão
+  .card { }
+  
+  // Card com elevação
+  .card--elevated { }
+  
+  // Header do card
+  .card__header { }
+  
+  // Conteúdo do card
+  .card__content { }
+  
+  // Footer do card
+  .card__footer { }
+}
+
+// Exemplo de uso da tabela
+.table-example {
+  // Tabela padrão
+  .table { }
+  
+  // Tabela com bordas
+  .table--bordered { }
+  
+  // Cabeçalho da tabela
+  .table__header { }
+  
+  // Linha da tabela
+  .table__row { }
+  
+  // Célula da tabela
+  .table__cell { }
+}
+
+// Exemplo de uso do modal
+.modal-example {
+  // Modal padrão
+  .modal { }
+  
+  // Modal grande
+  .modal--large { }
+  
+  // Header do modal
+  .modal__header { }
+  
+  // Conteúdo do modal
+  .modal__content { }
+  
+  // Footer do modal
+  .modal__footer { }
+  
+  // Botão de fechar
+  .modal__close { }
+}
+
+// Exemplo de uso do loading
+.loading-example {
+  // Spinner de loading
+  .loading__spinner { }
+  
+  // Loading com texto
+  .loading--with-text .loading__text { }
+  
+  // Loading pequeno
+  .loading--small { }
+  
+  // Loading grande
+  .loading--large { }
+}
+
+/*
+  REGRAS BEM:
+  
+  1. Use classes, não IDs
+  2. Use nomes descritivos
+  3. Use apenas um nível de aninhamento
+  4. Use modificadores para variações
+  5. Use elementos para partes do componente
+  
+  EXEMPLOS DE NOMES:
+  
+  .user-profile { }           // Bloco
+  .user-profile__avatar { }   // Elemento
+  .user-profile__name { }     // Elemento
+  .user-profile--compact { }  // Modificador
+  .user-profile__avatar--large { } // Elemento com modificador
+*/

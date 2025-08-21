@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "E1Sb01KtpAk=",
+  "success": false,
+  "projectFilePath": "C:\\me\\desafio\\backend\\Desafio-main\\DesafioBackend.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1100",
+      "level": "Error",
+      "message": "Não foi possível resolver 'Microsoft.AspNetCore.OpenApi (>= 8.0.0)' para 'net8.0'.",
+      "libraryId": "Microsoft.AspNetCore.OpenApi",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1100",
+      "level": "Error",
+      "message": "Não foi possível resolver 'Swashbuckle.AspNetCore (>= 6.4.0)' para 'net8.0'.",
+      "libraryId": "Swashbuckle.AspNetCore",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
+}
