@@ -1,73 +1,188 @@
-# Welcome to your Lovable project
+# Desafio Frontend - React + TypeScript
 
-## Project info
+## Arquitetura
 
-**URL**: https://lovable.dev/projects/6d5307bb-894e-4073-8483-b3fcee10e1e0
+Este projeto segue uma arquitetura modular baseada em **Clean Architecture** e **Feature-Based Structure**:
 
-## How can I edit this code?
+```
+frontend/
+├── public/                  # Arquivos estáticos
+├── src/
+│   ├── components/         # Componentes React
+│   │   ├── dashboard/     # Componentes do dashboard
+│   │   ├── login/         # Componentes de login
+│   │   └── ui/           # Componentes de UI (shadcn/ui)
+│   ├── core/              # Núcleo da aplicação
+│   │   ├── contexts/      # Contextos React
+│   │   ├── interfaces/    # Interfaces TypeScript
+│   │   ├── services/      # Serviços de API e negócio
+│   │   └── types/         # Tipos TypeScript
+│   ├── hooks/             # Custom hooks
+│   ├── lib/               # Utilitários e configurações
+│   └── types/             # Tipos específicos
+├── package.json
+└── README.md
+```
 
-There are several ways of editing your application.
+## Tecnologias Utilizadas
 
-**Use Lovable**
+### Framework e Runtime
+- **React 18** - Biblioteca para interfaces de usuário
+- **TypeScript** - Superset tipado do JavaScript
+- **Vite** - Build tool e dev server
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6d5307bb-894e-4073-8483-b3fcee10e1e0) and start prompting.
+### UI e Styling
+- **Tailwind CSS** - Framework CSS utility-first
+- **shadcn/ui** - Componentes de UI reutilizáveis
+- **Lucide React** - Ícones
+- **Radix UI** - Primitivos de UI acessíveis
 
-Changes made via Lovable will be committed automatically to this repo.
+### Roteamento e Estado
+- **React Router DOM** - Roteamento client-side
+- **React Context** - Gerenciamento de estado global
 
-**Use your preferred IDE**
+### Formulários e Validação
+- **React Hook Form** - Gerenciamento de formulários
+- **Zod** - Validação de schema TypeScript-first
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### HTTP e API
+- **Axios** - Cliente HTTP
+- **React Query/TanStack Query** - Gerenciamento de estado servidor
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Utilitários
+- **date-fns** - Manipulação de datas
+- **clsx** - Utilitário para classes condicionais
+- **class-variance-authority** - Variantes de componentes
 
-Follow these steps:
+## Funcionalidades
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Autenticação
+- Login com JWT
+- Proteção de rotas
+- Gerenciamento de sessão
+- Logout automático em caso de token expirado
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Gerenciamento de Pessoas
+- **Versão 1**: CRUD básico de pessoas
+- **Versão 2**: CRUD com endereço obrigatório
+- Validação de CPF
+- Formatação automática de campos
+- Busca e filtros
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Interface de Usuário
+- Design responsivo
+- Tema escuro/claro
+- Componentes acessíveis
+- Feedback visual (toasts, loading states)
+- Formulários com validação em tempo real
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## Configuração e Execução
+
+### Pré-requisitos
+- Node.js 18+ 
+- npm ou yarn ou bun
+
+### Instalação
+```bash
+cd frontend
+npm install
+```
+
+### Desenvolvimento
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build para Produção
+```bash
+npm run build
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Preview da Build
+```bash
+npm run preview
+```
 
-**Use GitHub Codespaces**
+## Estrutura de Componentes
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Dashboard Layout
+- Sidebar responsiva
+- Header com informações do usuário
+- Navegação entre versões da API
+- Área de conteúdo principal
 
-## What technologies are used for this project?
+### Formulários
+- **PersonForm**: Formulário V1 (endereço opcional)
+- **PersonFormV2**: Formulário V2 (endereço obrigatório)
+- Validação em tempo real
+- Máscaras para CPF e CEP
 
-This project is built with:
+### Listas e Tabelas
+- Tabelas responsivas
+- Paginação
+- Ordenação
+- Ações inline (editar, excluir)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Serviços e APIs
 
-## How can I deploy this project?
+### AuthService
+- Gerenciamento de autenticação
+- Armazenamento seguro de tokens
+- Renovação automática de tokens
 
-Simply open [Lovable](https://lovable.dev/projects/6d5307bb-894e-4073-8483-b3fcee10e1e0) and click on Share -> Publish.
+### ApiService
+- Cliente HTTP configurado
+- Interceptors para autenticação
+- Tratamento de erros centralizado
 
-## Can I connect a custom domain to my Lovable project?
+### StorageService
+- Abstração do localStorage
+- Prefixos para organização
+- Tratamento de erros
 
-Yes, you can!
+## Validações
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### CPF
+- Validação de dígitos verificadores
+- Formatação automática
+- Verificação de sequências inválidas
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### CEP
+- Validação de formato
+- Integração com APIs de CEP (preparado)
+
+### Formulários
+- Validação com Zod schemas
+- Mensagens de erro personalizadas
+- Validação em tempo real
+
+## Configurações
+
+### Variáveis de Ambiente
+```env
+VITE_API_BASE_URL=http://localhost:5054/api
+```
+
+### Tailwind CSS
+- Configuração customizada
+- Tema personalizado
+- Componentes shadcn/ui integrados
+
+## Desenvolvimento
+
+### Padrões de Código
+- Componentes funcionais com hooks
+- TypeScript strict mode
+- Props tipadas
+- Custom hooks para lógica reutilizável
+
+### Estrutura de Pastas
+- Separação por feature
+- Componentes reutilizáveis em `/ui`
+- Serviços centralizados em `/core`
+- Types organizados por domínio
+
+### Responsividade
+- Mobile-first approach
+- Breakpoints do Tailwind CSS
+- Componentes adaptativos

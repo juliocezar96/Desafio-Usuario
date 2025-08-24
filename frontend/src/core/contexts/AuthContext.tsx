@@ -22,7 +22,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Verificar autenticação ao inicializar
     const checkAuth = () => {
       try {
         const authenticated = authService.isAuthenticated();

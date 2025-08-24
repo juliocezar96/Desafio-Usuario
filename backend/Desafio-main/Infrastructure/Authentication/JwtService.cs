@@ -23,7 +23,7 @@ namespace DesafioBackend.Infrastructure.Authentication
         {
             var usuario = await _usuarioRepository.ObterPorNomeUsuarioAsync(loginDTO.NomeUsuario);
             
-            if (usuario == null || usuario.Senha != loginDTO.Senha) // Em produção, usar hash da senha
+            if (usuario == null || usuario.Senha != loginDTO.Senha)
             {
                 throw new UnauthorizedAccessException("Credenciais inválidas");
             }
@@ -36,7 +36,7 @@ namespace DesafioBackend.Infrastructure.Authentication
             usuario.AtualizarUltimoLogin();
             
             var token = GerarToken(usuario.NomeUsuario, usuario.Email);
-            var dataExpiracao = DateTime.UtcNow.AddHours(24); // Token válido por 24 horas
+            var dataExpiracao = DateTime.UtcNow.AddHours(24);
 
             return new LoginResponseDTO
             {

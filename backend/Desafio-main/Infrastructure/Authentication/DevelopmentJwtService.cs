@@ -18,9 +18,6 @@ namespace DesafioBackend.Infrastructure.Authentication
 
         public async Task<LoginResponseDTO> Login(LoginDTO loginRequest)
         {
-            // Para desenvolvimento, aceitar qualquer usuário/senha
-            // Em produção, isso deve ser validado contra o banco
-            
             var token = GenerateJwtToken(loginRequest.NomeUsuario);
             
             return new LoginResponseDTO

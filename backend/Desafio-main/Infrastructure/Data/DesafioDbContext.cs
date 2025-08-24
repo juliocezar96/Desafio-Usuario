@@ -17,7 +17,6 @@ namespace DesafioBackend.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configuração da entidade Pessoa
             modelBuilder.Entity<Pessoa>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -48,7 +47,6 @@ namespace DesafioBackend.Infrastructure.Data
                 entity.Property(e => e.CEP).IsRequired().HasMaxLength(8);
             });
 
-            // Configuração da entidade Usuario
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -60,18 +58,16 @@ namespace DesafioBackend.Infrastructure.Data
                 entity.Property(e => e.NomeCompleto).HasMaxLength(100);
             });
 
-            // Seed de usuários para autenticação
             SeedUsuarios(modelBuilder);
         }
 
         private void SeedUsuarios(ModelBuilder modelBuilder)
         {
-            // Usuário padrão para testes (senha: admin123)
             var usuarioAdmin = new Usuario
             {
                 Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 NomeUsuario = "admin",
-                Senha = "admin123", // Em produção, deve ser hash da senha
+                Senha = "admin123",
                 Email = "admin@desafio.com",
                 NomeCompleto = "Administrador",
                 Ativo = true,

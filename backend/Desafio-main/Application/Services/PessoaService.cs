@@ -35,7 +35,6 @@ namespace DesafioBackend.Application.Services
 
         public async Task<PessoaDTO> CriarAsync(CriarPessoaDTO dto)
         {
-            // Verificar se CPF já existe
             if (await _pessoaRepository.CPFExisteAsync(dto.CPF))
             {
                 throw new InvalidOperationException("CPF já cadastrado no sistema");
@@ -54,7 +53,6 @@ namespace DesafioBackend.Application.Services
                 throw new InvalidOperationException("Pessoa não encontrada");
             }
 
-            // Verificar se CPF já existe em outra pessoa
             if (await _pessoaRepository.CPFExisteAsync(dto.CPF, id))
             {
                 throw new InvalidOperationException("CPF já cadastrado em outra pessoa");
@@ -77,7 +75,6 @@ namespace DesafioBackend.Application.Services
             return await _pessoaRepository.CPFExisteAsync(cpf, idExcluir);
         }
 
-        //Versão 2 dos métodos
         public async Task<IEnumerable<PessoaV2DTO>> ObterTodasV2Async()
         {
             var pessoas = await _pessoaV2Repository.ObterTodasAsync();
@@ -92,7 +89,6 @@ namespace DesafioBackend.Application.Services
         
         public async Task<PessoaV2DTO> CriarV2Async(CriarPessoaV2DTO dto)
         {
-            // Verificar se CPF já existe
             if (await _pessoaV2Repository.CPFExisteAsync(dto.CPF))
             {
                 throw new InvalidOperationException("CPF já cadastrado no sistema");
@@ -111,7 +107,6 @@ namespace DesafioBackend.Application.Services
                 throw new InvalidOperationException("Pessoa não encontrada");
             }
 
-            // Verificar se CPF já existe em outra pessoa
             if (await _pessoaV2Repository.CPFExisteAsync(dto.CPF, id))
             {
                 throw new InvalidOperationException("CPF já cadastrado em outra pessoa");

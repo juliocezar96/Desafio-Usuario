@@ -7,36 +7,11 @@ export class AuthService implements IAuthService {
   private readonly TOKEN_KEY = 'token';
   private readonly USER_KEY = 'user';
   
-  // Token padrão para desenvolvimento (JWT da imagem)
-  // private readonly DEFAULT_DEV_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30';
-
   private readonly DEFAULT_DEV_TOKEN='';
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     try {
-      // Em desenvolvimento, usar token padrão se as credenciais forem admin/admin123
-      // if (credentials.nomeUsuario === 'admin' && credentials.senha === 'admin123') {
-      //   const devResponse: LoginResponse = {
-      //     token: this.DEFAULT_DEV_TOKEN,
-      //     nomeUsuario: credentials.nomeUsuario,
-      //     email: 'dev@desafio.com',
-      //     dataExpiracao: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
-      //   };
-        
-        // Salvar token e dados do usuário
-        // storageService.setItem(this.TOKEN_KEY, devResponse.token);
-        // storageService.setItem(this.USER_KEY, JSON.stringify({
-        //   nomeUsuario: devResponse.nomeUsuario,
-        //   email: devResponse.email,
-        //   dataExpiracao: devResponse.dataExpiracao
-        // }));
-
-        // return devResponse;
-      // }
-
-      // Caso contrário, tentar login normal na API
       const response = await apiService.post<LoginResponse>('/Autenticacao/login', credentials);
       console.log(response);
-      // Salvar token e dados do usuário
       storageService.setItem(this.TOKEN_KEY, response.token);
       storageService.setItem(this.USER_KEY, JSON.stringify({
         nomeUsuario: response.nomeUsuario,
@@ -60,7 +35,6 @@ export class AuthService implements IAuthService {
     const token = this.getToken();
     if (!token) return false;
 
-    // Verificar se o token não expirou
     const userStr = storageService.getItem(this.USER_KEY);
     if (userStr) {
       try {
@@ -89,8 +63,6 @@ export class AuthService implements IAuthService {
       const token = this.getToken();
       if (!token) return null;
 
-      // Aqui você pode implementar a lógica de refresh token
-      // Por enquanto, vamos apenas retornar o token atual
       return token;
     } catch (error) {
       console.error('Erro ao renovar token:', error);
@@ -99,7 +71,6 @@ export class AuthService implements IAuthService {
     }
   }
 
-  // Método para obter dados do usuário logado
   getCurrentUser() {
     const userStr = storageService.getItem(this.USER_KEY);
     if (userStr) {
@@ -113,7 +84,6 @@ export class AuthService implements IAuthService {
     return null;
   }
 
-  // Método para desenvolvimento - aplicar token padrão
   applyDevToken(): void {
     if (process.env.NODE_ENV === 'development') {
       storageService.setItem(this.TOKEN_KEY, this.DEFAULT_DEV_TOKEN);

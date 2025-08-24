@@ -33,7 +33,6 @@ namespace DesafioBackend.Domain.Entities
 
         public Endereco? Endereco { get; set; }
 
-        // Construtor para inicializar datas
         public Pessoa()
         {
             Id = Guid.NewGuid();
@@ -41,7 +40,6 @@ namespace DesafioBackend.Domain.Entities
             DataAtualizacao = DateTime.UtcNow;
         }
 
-        // Método para atualizar data de modificação
         public void Atualizar()
         {
             DataAtualizacao = DateTime.UtcNow;

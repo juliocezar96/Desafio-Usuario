@@ -67,7 +67,7 @@ export const DashboardLayout = ({ onLogout }: DashboardLayoutProps) => {
         description: error instanceof Error ? error.message : "Erro desconhecido",
         variant: "destructive"
       });
-      throw error; // Re-throw para que o form possa tratar
+      throw error;
     }
   };
 

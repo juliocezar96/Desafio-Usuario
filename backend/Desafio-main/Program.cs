@@ -14,17 +14,12 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
-// Configurar Entity Framework
 builder.Services.AddDbContext<DesafioDbContext>(options =>
     options.UseInMemoryDatabase("DesafioDb"));
 
-// Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-
-// Configurar FluentValidation
 builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddCors(options =>
@@ -38,7 +33,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Configurar JWT
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.ASCII.GetBytes(jwtSettings["SecretKey"] ?? "a-string-secret-at-least-256-bits-long");
 
@@ -64,7 +58,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configurar Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -98,28 +91,21 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Registrar repositórios
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
-builder.Services.AddScoped<IPessoaV2Repository, PessoaV2Repository>(); // Usar o mesmo repositório por enquanto
+builder.Services.AddScoped<IPessoaV2Repository, PessoaV2Repository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
-// Registrar serviços
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<IJWtService, JwtService>();
-
-// Em desenvolvimento, usar o serviço de desenvolvimento
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddScoped<IAutenticacaoService, DevelopmentJwtService>();
-    
 }
 
 
 var app = builder.Build();
 
 app.UseCors("AllowAll");
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -127,7 +113,7 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Desafio Backend API v1");
         c.SwaggerEndpoint("/swagger/v2/swagger.json", "Desafio Backend API v2");
-        c.RoutePrefix = string.Empty; // Swagger na raiz
+        c.RoutePrefix = string.Empty;
     });
 }
 
@@ -137,8 +123,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// Seed inicial do banco
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<DesafioDbContext>();

@@ -18,9 +18,6 @@ namespace DesafioBackend.Presentation.Controllers
             _jwtService = jwtService;
         }
 
-        /// <summary>
-        /// Realizar login e obter token JWT
-        /// </summary>
         [HttpPost("login")]
         public async Task<ActionResult<LoginResponseDTO>> Login([FromBody] LoginDTO loginDTO)
         {
@@ -42,9 +39,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Verificar se token é válido
-        /// </summary>
         [HttpPost("validar-token")]
         public async Task<ActionResult<bool>> ValidarToken([FromBody] string token)
         {

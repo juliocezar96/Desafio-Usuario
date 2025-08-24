@@ -31,7 +31,6 @@ export interface AtualizarPessoa {
   cpf: string;
 }
 
-// Tipos para Endereço
 export interface Endereco {
   logradouro: string;
   numero: string;
@@ -42,7 +41,6 @@ export interface Endereco {
   cep: string;
 }
 
-// Tipos para PessoaV2 (com endereço)
 export interface PessoaV2 {
   id: string;
   nome: string;
@@ -79,7 +77,6 @@ export interface AtualizarPessoaV2 {
   endereco: Endereco;
 }
 
-// Tipos para Autenticação
 export interface LoginRequest {
   nomeUsuario: string;
   senha: string;
@@ -102,7 +99,6 @@ export interface Usuario {
   ultimoLogin?: string;
 }
 
-// Tipos para API
 export interface ApiResponse<T> {
   data: T;
   message?: string;

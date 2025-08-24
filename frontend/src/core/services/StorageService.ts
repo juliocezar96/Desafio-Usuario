@@ -30,7 +30,6 @@ export class StorageService implements IStorageService {
 
   clear(): void {
     try {
-      // Remove apenas os itens com prefixo do desafio
       const keys = Object.keys(localStorage);
       keys.forEach(key => {
         if (key.startsWith(this.prefix)) {

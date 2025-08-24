@@ -1,5 +1,3 @@
-// TypeScript types for the person management system
-
 export interface Address {
   logradouro: string;
   numero: string;

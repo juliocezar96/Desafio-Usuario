@@ -1,16 +1,10 @@
-// Validation utilities for the person management system
-
 export const validateCPF = (cpf: string): boolean => {
-  // Remove non-numeric characters
   const cleanCPF = cpf.replace(/\D/g, '');
   
-  // Check if has 11 digits
   if (cleanCPF.length !== 11) return false;
   
-  // Check if all digits are the same
   if (/^(\d)\1{10}$/.test(cleanCPF)) return false;
   
-  // Validate first check digit
   let sum = 0;
   for (let i = 0; i < 9; i++) {
     sum += parseInt(cleanCPF.charAt(i)) * (10 - i);
@@ -19,7 +13,6 @@ export const validateCPF = (cpf: string): boolean => {
   if (checkDigit === 10 || checkDigit === 11) checkDigit = 0;
   if (checkDigit !== parseInt(cleanCPF.charAt(9))) return false;
   
-  // Validate second check digit
   sum = 0;
   for (let i = 0; i < 10; i++) {
     sum += parseInt(cleanCPF.charAt(i)) * (11 - i);
@@ -64,7 +57,6 @@ export const formatCEP = (cep: string): string => {
   return cleanCEP.replace(/(\d{5})(\d{3})/, '$1-$2');
 };
 
-// Brazilian states for validation
 export const brazilianStates = [
   'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 
   'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 

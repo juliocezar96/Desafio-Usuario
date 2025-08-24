@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using DesafioBackend.Application.DTOs;
 using DesafioBackend.Application.Interfaces;
@@ -17,9 +17,6 @@ namespace DesafioBackend.Presentation.Controllers
             _pessoaService = pessoaService;
         }
 
-        /// <summary>
-        /// Obter todas as pessoas cadastradas (versão 2)
-        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PessoaV2DTO>>> ObterTodas()
         {
@@ -34,9 +31,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Obter pessoa por ID (versão 2)
-        /// </summary>
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<PessoaV2DTO>> ObterPorId(Guid id)
         {
@@ -54,9 +48,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Cadastrar nova pessoa (versão 2)
-        /// </summary>
         [HttpPost]
         public async Task<ActionResult<PessoaV2DTO>> Criar([FromBody] CriarPessoaV2DTO dto)
         {
@@ -78,9 +69,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Atualizar pessoa existente (versão 2)
-        /// </summary>
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<PessoaV2DTO>> Atualizar(Guid id, [FromBody] AtualizarPessoaV2DTO dto)
         {
@@ -102,9 +90,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Excluir pessoa (versão 2)
-        /// </summary>
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Excluir(Guid id)
         {
@@ -122,9 +107,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Verificar se CPF já existe (versão 2)
-        /// </summary>
         [HttpGet("verificar-cpf/{cpf}")]
         public async Task<ActionResult<bool>> VerificarCPF(string cpf)
         {

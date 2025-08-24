@@ -26,14 +26,12 @@ namespace DesafioBackend.Domain.Entities
         
         public DateTime? UltimoLogin { get; set; }
         
-        // Construtor para inicializar datas
         public Usuario()
         {
             Id = Guid.NewGuid();
             DataCadastro = DateTime.UtcNow;
         }
         
-        // Método para atualizar último login
         public void AtualizarUltimoLogin()
         {
             UltimoLogin = DateTime.UtcNow;

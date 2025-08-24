@@ -3,7 +3,7 @@ import { storageService } from './StorageService';
 
 export class ApiService {
   private api: AxiosInstance;
-  private readonly baseURL = 'http://localhost:5054/api'; // Backend .NET
+  private readonly baseURL = 'http://localhost:5054/api';
 
   constructor() {
     this.api = axios.create({
@@ -18,7 +18,6 @@ export class ApiService {
   }
 
   private setupInterceptors(): void {
-    // Interceptor para adicionar token em todas as requisições
     this.api.interceptors.request.use(
       (config) => {
         const token = storageService.getItem('token');
@@ -32,14 +31,12 @@ export class ApiService {
       }
     );
 
-    // Interceptor para tratar respostas
     this.api.interceptors.response.use(
       (response: AxiosResponse) => {
         return response;
       },
       (error) => {
         if (error.response?.status === 401) {
-          // Token expirado ou inválido
           storageService.removeItem('token');
           storageService.removeItem('user');
           window.location.href = '/login';
@@ -49,7 +46,6 @@ export class ApiService {
     );
   }
 
-  // Métodos HTTP genéricos
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     const response = await this.api.get<T>(url, config);
     return response.data;
@@ -70,7 +66,6 @@ export class ApiService {
     return response.data;
   }
 
-  // Método para fazer upload de arquivos
   async upload<T>(url: string, formData: FormData, config?: AxiosRequestConfig): Promise<T> {
     const response = await this.api.post<T>(url, formData, {
       ...config,

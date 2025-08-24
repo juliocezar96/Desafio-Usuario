@@ -17,9 +17,6 @@ namespace DesafioBackend.Presentation.Controllers
             _pessoaService = pessoaService;
         }
 
-        /// <summary>
-        /// Obter todas as pessoas cadastradas
-        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PessoaDTO>>> ObterTodas()
         {
@@ -34,9 +31,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Obter pessoa por ID
-        /// </summary>
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<PessoaDTO>> ObterPorId(Guid id)
         {
@@ -54,9 +48,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Cadastrar nova pessoa
-        /// </summary>
         [HttpPost]
         public async Task<ActionResult<PessoaDTO>> Criar([FromBody] CriarPessoaDTO dto)
         {
@@ -78,9 +69,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Atualizar pessoa existente
-        /// </summary>
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<PessoaDTO>> Atualizar(Guid id, [FromBody] AtualizarPessoaDTO dto)
         {
@@ -102,9 +90,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Excluir pessoa
-        /// </summary>
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Excluir(Guid id)
         {
@@ -122,9 +107,6 @@ namespace DesafioBackend.Presentation.Controllers
             }
         }
 
-        /// <summary>
-        /// Verificar se CPF já existe
-        /// </summary>
         [HttpGet("verificar-cpf/{cpf}")]
         public async Task<ActionResult<bool>> VerificarCPF(string cpf)
         {
