@@ -27,9 +27,20 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", policy =>
     {
         policy
-            .AllowAnyOrigin()
+            .WithOrigins(
+                "http://localhost:3000",
+                "http://localhost:5173", 
+                "http://localhost:8080",
+                "https://localhost:3000",
+                "https://localhost:5173",
+                "https://localhost:8080",
+                "https://desafio-usuario.fly.dev",
+                "https://*.netlify.app",
+                "https://*.netlify.com"
+            )
             .AllowAnyMethod()
-            .AllowAnyHeader();
+            .AllowAnyHeader()
+            .AllowCredentials();
     });
 });
 
