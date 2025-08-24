@@ -5,28 +5,30 @@ using DesafioBackend.Infrastructure.Data;
 
 namespace DesafioBackend.Infrastructure.Repositories
 {
-    public class PessoaRepository : IPessoaRepository
+    public class PessoaV2Repository : IPessoaV2Repository
     {
         private readonly DesafioDbContext _context;
 
-        public PessoaRepository(DesafioDbContext context)
+        public PessoaV2Repository(DesafioDbContext context)
         {
             _context = context;
         }
-
+        
         public async Task<IEnumerable<Pessoa>> ObterTodasAsync()
         {
-            return await _context.Pessoas.ToListAsync();
+            return await _context.Pessoas
+                         .Include(p => p.Endereco) 
+                         .ToListAsync();
         }
 
         public async Task<Pessoa?> ObterPorIdAsync(Guid id)
         {
-            return await _context.Pessoas.FindAsync(id);
+            return await _context.Pessoas.Include(p => p.Endereco).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Pessoa?> ObterPorCPFAsync(string cpf)
         {
-            return await _context.Pessoas.FirstOrDefaultAsync(p => p.CPF == cpf);
+            return await _context.Pessoas.Include(p => p.Endereco).FirstOrDefaultAsync(p => p.CPF == cpf);
         }
 
         public async Task<Pessoa> AdicionarAsync(Pessoa pessoa)
@@ -48,6 +50,7 @@ namespace DesafioBackend.Infrastructure.Repositories
             var pessoa = await _context.Pessoas.FindAsync(id);
             if (pessoa == null)
                 return false;
+
 
             _context.Pessoas.Remove(pessoa);
             await _context.SaveChangesAsync();

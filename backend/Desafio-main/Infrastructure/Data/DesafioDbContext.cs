@@ -28,31 +28,24 @@ namespace DesafioBackend.Infrastructure.Data
                 entity.Property(e => e.Sexo).HasMaxLength(20);
                 entity.Property(e => e.Naturalidade).HasMaxLength(100);
                 entity.Property(e => e.Nacionalidade).HasMaxLength(100);
+                entity.Property(e => e.DataNascimento).IsRequired();
+                entity.Property(e => e.DataCadastro);
+                entity.Property(e => e.DataAtualizacao);
+                entity.HasOne(p => p.Endereco)
+                      .WithOne(e => e.Pessoa)
+                      .HasForeignKey<Endereco>(e => e.Id) 
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configuração da entidade PessoaV2
-            modelBuilder.Entity<PessoaV2>(entity =>
+            modelBuilder.Entity<Endereco>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.CPF).IsRequired().HasMaxLength(11);
-                entity.HasIndex(e => e.CPF).IsUnique();
-                entity.Property(e => e.Nome).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Email).HasMaxLength(100);
-                entity.Property(e => e.Sexo).HasMaxLength(20);
-                entity.Property(e => e.Naturalidade).HasMaxLength(100);
-                entity.Property(e => e.Nacionalidade).HasMaxLength(100);
-                
-                // Configuração do endereço como propriedade complexa
-                entity.OwnsOne(e => e.Endereco, endereco =>
-                {
-                    endereco.Property(e => e.Logradouro).IsRequired().HasMaxLength(200);
-                    endereco.Property(e => e.Numero).IsRequired().HasMaxLength(20);
-                    endereco.Property(e => e.Complemento).HasMaxLength(100);
-                    endereco.Property(e => e.Bairro).IsRequired().HasMaxLength(100);
-                    endereco.Property(e => e.Cidade).IsRequired().HasMaxLength(100);
-                    endereco.Property(e => e.Estado).IsRequired().HasMaxLength(2);
-                    endereco.Property(e => e.CEP).IsRequired().HasMaxLength(8);
-                });
+                entity.Property(e => e.Logradouro).IsRequired();
+                entity.Property(e => e.Numero).IsRequired();
+                entity.Property(e => e.Bairro).IsRequired();
+                entity.Property(e => e.Cidade).IsRequired();
+                entity.Property(e => e.Estado).IsRequired().HasMaxLength(2);
+                entity.Property(e => e.CEP).IsRequired().HasMaxLength(8);
             });
 
             // Configuração da entidade Usuario

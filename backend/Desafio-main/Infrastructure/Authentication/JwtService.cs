@@ -8,7 +8,7 @@ using DesafioBackend.Domain.Interfaces;
 
 namespace DesafioBackend.Infrastructure.Authentication
 {
-    public class JwtService : IAutenticacaoService
+    public class JwtService : IJWtService
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IConfiguration _configuration;

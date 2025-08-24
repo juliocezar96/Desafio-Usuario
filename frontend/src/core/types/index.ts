@@ -1,4 +1,3 @@
-// Tipos para Pessoa
 export interface Pessoa {
   id: string;
   nome: string;

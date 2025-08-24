@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using DesafioBackend.Application.DTOs;
 using DesafioBackend.Application.Interfaces;
+using DesafioBackend.Infrastructure.Authentication;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioBackend.Presentation.Controllers
 {
@@ -9,10 +10,12 @@ namespace DesafioBackend.Presentation.Controllers
     public class AutenticacaoController : ControllerBase
     {
         private readonly IAutenticacaoService _autenticacaoService;
+        private readonly IJWtService _jwtService;
 
-        public AutenticacaoController(IAutenticacaoService autenticacaoService)
+        public AutenticacaoController(IAutenticacaoService autenticacaoService, IJWtService jwtService)
         {
             _autenticacaoService = autenticacaoService;
+            _jwtService = jwtService;
         }
 
         /// <summary>
@@ -26,7 +29,7 @@ namespace DesafioBackend.Presentation.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var response = await _autenticacaoService.AutenticarAsync(loginDTO);
+                var response = await _jwtService.AutenticarAsync(loginDTO);
                 return Ok(response);
             }
             catch (UnauthorizedAccessException ex)
@@ -47,7 +50,7 @@ namespace DesafioBackend.Presentation.Controllers
         {
             try
             {
-                var isValid = await _autenticacaoService.ValidarTokenAsync(token);
+                var isValid = await _jwtService.ValidarTokenAsync(token);
                 return Ok(isValid);
             }
             catch (Exception ex)

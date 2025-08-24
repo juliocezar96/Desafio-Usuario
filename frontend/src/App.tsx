@@ -1,42 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './core/contexts/AuthContext';
-import { ProtectedRoute } from './shared/components/ProtectedRoute';
-import { Layout } from './shared/components/Layout';
-import { LoginPage } from './features/auth/LoginPage';
-import { DashboardPage } from './features/pessoas/DashboardPage';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
 
-function App() {
-  return (
-    <AuthProvider>
-      <Router>
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
         <Routes>
-          {/* Rota pública de login */}
-          <Route path="/login" element={<LoginPage />} />
-          
-          {/* Rotas protegidas */}
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Layout>
-                <DashboardPage />
-              </Layout>
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <Layout>
-                <DashboardPage />
-              </Layout>
-            </ProtectedRoute>
-          } />
-          
-          {/* Redirecionar rotas não encontradas para dashboard */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<Index />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
-      </Router>
-    </AuthProvider>
-  );
-}
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;

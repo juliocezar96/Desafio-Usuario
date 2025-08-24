@@ -3,7 +3,7 @@ import { storageService } from './StorageService';
 
 export class ApiService {
   private api: AxiosInstance;
-  private readonly baseURL = 'https://localhost:7001/api'; // Ajuste conforme sua porta
+  private readonly baseURL = 'http://localhost:5054/api'; // Backend .NET
 
   constructor() {
     this.api = axios.create({

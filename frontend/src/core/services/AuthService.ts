@@ -8,33 +8,34 @@ export class AuthService implements IAuthService {
   private readonly USER_KEY = 'user';
   
   // Token padrão para desenvolvimento (JWT da imagem)
-  private readonly DEFAULT_DEV_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30';
+  // private readonly DEFAULT_DEV_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30';
 
+  private readonly DEFAULT_DEV_TOKEN='';
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     try {
       // Em desenvolvimento, usar token padrão se as credenciais forem admin/admin123
-      if (credentials.nomeUsuario === 'admin' && credentials.senha === 'admin123') {
-        const devResponse: LoginResponse = {
-          token: this.DEFAULT_DEV_TOKEN,
-          nomeUsuario: credentials.nomeUsuario,
-          email: 'dev@desafio.com',
-          dataExpiracao: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
-        };
+      // if (credentials.nomeUsuario === 'admin' && credentials.senha === 'admin123') {
+      //   const devResponse: LoginResponse = {
+      //     token: this.DEFAULT_DEV_TOKEN,
+      //     nomeUsuario: credentials.nomeUsuario,
+      //     email: 'dev@desafio.com',
+      //     dataExpiracao: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      //   };
         
         // Salvar token e dados do usuário
-        storageService.setItem(this.TOKEN_KEY, devResponse.token);
-        storageService.setItem(this.USER_KEY, JSON.stringify({
-          nomeUsuario: devResponse.nomeUsuario,
-          email: devResponse.email,
-          dataExpiracao: devResponse.dataExpiracao
-        }));
+        // storageService.setItem(this.TOKEN_KEY, devResponse.token);
+        // storageService.setItem(this.USER_KEY, JSON.stringify({
+        //   nomeUsuario: devResponse.nomeUsuario,
+        //   email: devResponse.email,
+        //   dataExpiracao: devResponse.dataExpiracao
+        // }));
 
-        return devResponse;
-      }
+        // return devResponse;
+      // }
 
       // Caso contrário, tentar login normal na API
-      const response = await apiService.post<LoginResponse>('/autenticacao/login', credentials);
-      
+      const response = await apiService.post<LoginResponse>('/Autenticacao/login', credentials);
+      console.log(response);
       // Salvar token e dados do usuário
       storageService.setItem(this.TOKEN_KEY, response.token);
       storageService.setItem(this.USER_KEY, JSON.stringify({

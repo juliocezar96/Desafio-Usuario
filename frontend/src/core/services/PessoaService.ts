@@ -5,7 +5,7 @@ import { apiService } from './ApiService';
 export class PessoaService implements IPessoaService {
   async obterTodas(): Promise<Pessoa[]> {
     try {
-      return await apiService.get<Pessoa[]>('/v1/pessoas');
+      return await apiService.get<Pessoa[]>('/v1/Pessoas');
     } catch (error: any) {
       console.error('Erro ao obter pessoas:', error);
       throw new Error('Falha ao carregar lista de pessoas.');
@@ -14,7 +14,7 @@ export class PessoaService implements IPessoaService {
 
   async obterPorId(id: string): Promise<Pessoa | null> {
     try {
-      return await apiService.get<Pessoa>(`/v1/pessoas/${id}`);
+      return await apiService.get<Pessoa>(`/v1/Pessoas/${id}`);
     } catch (error: any) {
       console.error('Erro ao obter pessoa:', error);
       if (error.response?.status === 404) {
@@ -26,7 +26,7 @@ export class PessoaService implements IPessoaService {
 
   async criar(pessoa: CriarPessoa): Promise<Pessoa> {
     try {
-      return await apiService.post<Pessoa>('/v1/pessoas', pessoa);
+      return await apiService.post<Pessoa>('/v1/Pessoas', pessoa);
     } catch (error: any) {
       console.error('Erro ao criar pessoa:', error);
       if (error.response?.data?.message) {
@@ -38,7 +38,7 @@ export class PessoaService implements IPessoaService {
 
   async atualizar(id: string, pessoa: AtualizarPessoa): Promise<Pessoa> {
     try {
-      return await apiService.put<Pessoa>(`/v1/pessoas/${id}`, pessoa);
+      return await apiService.put<Pessoa>(`/v1/Pessoas/${id}`, pessoa);
     } catch (error: any) {
       console.error('Erro ao atualizar pessoa:', error);
       if (error.response?.data?.message) {
@@ -50,7 +50,7 @@ export class PessoaService implements IPessoaService {
 
   async excluir(id: string): Promise<boolean> {
     try {
-      await apiService.delete(`/v1/pessoas/${id}`);
+      await apiService.delete(`/v1/Pessoas/${id}`);
       return true;
     } catch (error: any) {
       console.error('Erro ao excluir pessoa:', error);
@@ -63,7 +63,7 @@ export class PessoaService implements IPessoaService {
 
   async verificarCPF(cpf: string): Promise<boolean> {
     try {
-      return await apiService.get<boolean>(`/v1/pessoas/verificar-cpf/${cpf}`);
+      return await apiService.get<boolean>(`/v1/Pessoas/verificar-cpf/${cpf}`);
     } catch (error: any) {
       console.error('Erro ao verificar CPF:', error);
       throw new Error('Falha ao verificar CPF.');

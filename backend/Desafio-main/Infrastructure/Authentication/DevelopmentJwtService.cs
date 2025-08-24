@@ -28,7 +28,7 @@ namespace DesafioBackend.Infrastructure.Authentication
                 Token = token,
                 NomeUsuario = loginRequest.NomeUsuario,
                 Email = "dev@desafio.com",
-                DataExpiracao = DateTime.UtcNow.AddHours(24).ToString("yyyy-MM-ddTHH:mm:ssZ")
+                DataExpiracao = DateTime.UtcNow.AddHours(24),
             };
         }
 
