@@ -106,16 +106,15 @@ if (builder.Environment.IsDevelopment())
 var app = builder.Build();
 
 app.UseCors("AllowAll");
-if (app.Environment.IsDevelopment())
+
+// Enable Swagger in all environments for demo purposes
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Desafio Backend API v1");
-        c.SwaggerEndpoint("/swagger/v2/swagger.json", "Desafio Backend API v2");
-        c.RoutePrefix = string.Empty;
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Desafio Backend API v1");
+    c.SwaggerEndpoint("/swagger/v2/swagger.json", "Desafio Backend API v2");
+    c.RoutePrefix = string.Empty;
+});
 
 app.UseHttpsRedirection();
 
