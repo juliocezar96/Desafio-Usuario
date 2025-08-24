@@ -108,10 +108,9 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<IJWtService, JwtService>();
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddScoped<IAutenticacaoService, DevelopmentJwtService>();
-}
+
+// Register authentication service for all environments
+builder.Services.AddScoped<IAutenticacaoService, DevelopmentJwtService>();
 
 
 var app = builder.Build();
