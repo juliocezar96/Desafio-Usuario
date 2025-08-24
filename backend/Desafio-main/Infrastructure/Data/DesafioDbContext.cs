@@ -71,7 +71,7 @@ namespace DesafioBackend.Infrastructure.Data
                 Email = "admin@desafio.com",
                 NomeCompleto = "Administrador",
                 Ativo = true,
-                DataCadastro = DateTime.UtcNow
+                DataCadastro = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             };
 
             modelBuilder.Entity<Usuario>().HasData(usuarioAdmin);

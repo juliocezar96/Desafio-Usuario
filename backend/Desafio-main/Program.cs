@@ -133,10 +133,36 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-using (var scope = app.Services.CreateScope())
+
+// Initialize database with error handling
+try
 {
-    var context = scope.ServiceProvider.GetRequiredService<DesafioDbContext>();
-    context.Database.EnsureCreated();
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<DesafioDbContext>();
+        context.Database.EnsureCreated();
+        
+        // Ensure admin user exists
+        if (!context.Usuarios.Any(u => u.NomeUsuario == "admin"))
+        {
+            var adminUser = new DesafioBackend.Domain.Entities.Usuario
+            {
+                Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                NomeUsuario = "admin",
+                Senha = "admin123",
+                Email = "admin@desafio.com",
+                NomeCompleto = "Administrador",
+                Ativo = true,
+                DataCadastro = DateTime.UtcNow
+            };
+            context.Usuarios.Add(adminUser);
+            context.SaveChanges();
+        }
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Database initialization error: {ex.Message}");
 }
 
 app.Run();
