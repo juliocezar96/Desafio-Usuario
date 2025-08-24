@@ -37,7 +37,7 @@ builder.Services.AddCors(options =>
                 "https://desafio-usuario.fly.dev",
                 "https://*.netlify.app",
                 "https://*.netlify.com",
-                "https://68aa986ab5d9e10008150f63--monumental-strudel-c2d580.netlify.app/"
+                "https://68aa986ab5d9e10008150f63--monumental-strudel-c2d580.netlify.app"
             )
             .AllowAnyMethod()
             .AllowAnyHeader()
