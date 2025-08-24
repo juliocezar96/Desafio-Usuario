@@ -3,7 +3,7 @@ import { storageService } from './StorageService';
 
 export class ApiService {
   private api: AxiosInstance;
-  private readonly baseURL = 'http://localhost:5054/api';
+  private readonly baseURL = 'https://desafio-usuario.fly.dev/api';
 
   constructor() {
     this.api = axios.create({
