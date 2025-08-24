@@ -7,7 +7,6 @@ app = "desafio-backend"
 primary_region = "gru"
 
 [build]
-  dockerfile = "backend/Desafio-main/Dockerfile"
 
 [http_service]
   internal_port = 8080
