@@ -4,9 +4,9 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["DesafioBackend.csproj", "./"]
+COPY ["backend/Desafio-main/DesafioBackend.csproj", "./"]
 RUN dotnet restore "./DesafioBackend.csproj"
-COPY . .
+COPY backend/Desafio-main/ .
 RUN dotnet build "DesafioBackend.csproj" -c Release -o /app/build
 
 FROM build AS publish
