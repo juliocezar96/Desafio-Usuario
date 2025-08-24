@@ -23,19 +23,32 @@ namespace DesafioBackend.Presentation.Controllers
         {
             try
             {
+                Console.WriteLine($"Login attempt for user: {loginDTO?.NomeUsuario}");
+                
                 if (!ModelState.IsValid)
+                {
+                    Console.WriteLine("ModelState is invalid");
                     return BadRequest(ModelState);
+                }
 
                 var response = await _jwtService.AutenticarAsync(loginDTO);
+                Console.WriteLine("Login successful");
                 return Ok(response);
             }
             catch (UnauthorizedAccessException ex)
             {
+                Console.WriteLine($"Unauthorized: {ex.Message}");
                 return Unauthorized(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Erro interno do servidor", error = ex.Message });
+                Console.WriteLine($"Login error: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return StatusCode(500, new { 
+                    message = "Erro interno do servidor", 
+                    error = ex.Message,
+                    stackTrace = ex.StackTrace
+                });
             }
         }
 

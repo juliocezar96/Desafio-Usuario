@@ -140,11 +140,28 @@ try
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<DesafioDbContext>();
-        context.Database.EnsureCreated();
+        
+        Console.WriteLine("Starting database initialization...");
+        
+        // Ensure database is created
+        var created = await context.Database.EnsureCreatedAsync();
+        Console.WriteLine($"Database created: {created}");
+        
+        // Check connection
+        var canConnect = await context.Database.CanConnectAsync();
+        Console.WriteLine($"Can connect to database: {canConnect}");
+        
+        // Count existing users
+        var userCount = context.Usuarios.Count();
+        Console.WriteLine($"Existing user count: {userCount}");
         
         // Ensure admin user exists
-        if (!context.Usuarios.Any(u => u.NomeUsuario == "admin"))
+        var adminExists = context.Usuarios.Any(u => u.NomeUsuario == "admin");
+        Console.WriteLine($"Admin user exists: {adminExists}");
+        
+        if (!adminExists)
         {
+            Console.WriteLine("Creating admin user...");
             var adminUser = new DesafioBackend.Domain.Entities.Usuario
             {
                 Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
@@ -156,13 +173,21 @@ try
                 DataCadastro = DateTime.UtcNow
             };
             context.Usuarios.Add(adminUser);
-            context.SaveChanges();
+            var saved = await context.SaveChangesAsync();
+            Console.WriteLine($"Admin user created, changes saved: {saved}");
         }
+        
+        // Final verification
+        var finalUserCount = context.Usuarios.Count();
+        var finalAdminExists = context.Usuarios.Any(u => u.NomeUsuario == "admin");
+        Console.WriteLine($"Final user count: {finalUserCount}");
+        Console.WriteLine($"Final admin exists: {finalAdminExists}");
     }
 }
 catch (Exception ex)
 {
     Console.WriteLine($"Database initialization error: {ex.Message}");
+    Console.WriteLine($"Stack trace: {ex.StackTrace}");
 }
 
 app.Run();

@@ -21,30 +21,47 @@ namespace DesafioBackend.Infrastructure.Authentication
 
         public async Task<LoginResponseDTO> AutenticarAsync(LoginDTO loginDTO)
         {
-            var usuario = await _usuarioRepository.ObterPorNomeUsuarioAsync(loginDTO.NomeUsuario);
-            
-            if (usuario == null || usuario.Senha != loginDTO.Senha)
+            try
             {
-                throw new UnauthorizedAccessException("Credenciais inválidas");
+                Console.WriteLine($"JwtService: Authenticating user {loginDTO.NomeUsuario}");
+                
+                var usuario = await _usuarioRepository.ObterPorNomeUsuarioAsync(loginDTO.NomeUsuario);
+                Console.WriteLine($"JwtService: User found: {usuario != null}");
+                
+                if (usuario == null || usuario.Senha != loginDTO.Senha)
+                {
+                    Console.WriteLine($"JwtService: Invalid credentials - User null: {usuario == null}, Password match: {usuario?.Senha == loginDTO.Senha}");
+                    throw new UnauthorizedAccessException("Credenciais inválidas");
+                }
+
+                if (!usuario.Ativo)
+                {
+                    Console.WriteLine("JwtService: User inactive");
+                    throw new UnauthorizedAccessException("Usuário inativo");
+                }
+
+                Console.WriteLine("JwtService: Updating last login");
+                usuario.AtualizarUltimoLogin();
+                
+                Console.WriteLine("JwtService: Generating token");
+                var token = GerarToken(usuario.NomeUsuario, usuario.Email);
+                var dataExpiracao = DateTime.UtcNow.AddHours(24);
+
+                Console.WriteLine("JwtService: Authentication successful");
+                return new LoginResponseDTO
+                {
+                    Token = token,
+                    NomeUsuario = usuario.NomeUsuario,
+                    Email = usuario.Email,
+                    DataExpiracao = dataExpiracao
+                };
             }
-
-            if (!usuario.Ativo)
+            catch (Exception ex)
             {
-                throw new UnauthorizedAccessException("Usuário inativo");
+                Console.WriteLine($"JwtService error: {ex.Message}");
+                Console.WriteLine($"JwtService stack trace: {ex.StackTrace}");
+                throw;
             }
-
-            usuario.AtualizarUltimoLogin();
-            
-            var token = GerarToken(usuario.NomeUsuario, usuario.Email);
-            var dataExpiracao = DateTime.UtcNow.AddHours(24);
-
-            return new LoginResponseDTO
-            {
-                Token = token,
-                NomeUsuario = usuario.NomeUsuario,
-                Email = usuario.Email,
-                DataExpiracao = dataExpiracao
-            };
         }
 
         public string GerarToken(string nomeUsuario, string email)

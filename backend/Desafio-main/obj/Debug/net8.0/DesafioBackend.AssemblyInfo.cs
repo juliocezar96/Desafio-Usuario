@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DesafioBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c1eaa0fbf7a88140e58419b8fd51a065253f612")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20eba1a18d42f35306b13a19805a53f9da6ae301")]
 [assembly: System.Reflection.AssemblyProductAttribute("DesafioBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DesafioBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
